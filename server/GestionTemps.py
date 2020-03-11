@@ -3,9 +3,9 @@ import time
 
 class Temps:
 	@staticmethod
-	def GetHeure():
+	def GetHeure() -> str:
 		return time.strftime("%H:%M:%S")
 
 	@staticmethod
-	def GetDate():
+	def GetDate() -> str:
 		return time.strftime("%d/%m/%Y")
