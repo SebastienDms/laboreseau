@@ -8,3 +8,7 @@ class Command(Enum):
 	AUTHOK = 4  # connexion à la session réussie
 	FAIL = 5  # connexion à la session ratée
 	TIME = 6  # commande pour obtenir le temps
+	SYN = "SYN" # demande de synchro du client (handshake)
+	SYNOK = "SYNOK" # confirmation du serveur pour la dmd de synchro
+	OK = "OK" # indique que le client en envie (ACK)
+
