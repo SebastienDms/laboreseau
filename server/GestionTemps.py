@@ -2,8 +2,10 @@ import time
 
 
 class Temps:
-	def GetHeure(self):
-		time.strftime("%H:%M:%S")
+	@staticmethod
+	def GetHeure():
+		return time.strftime("%H:%M:%S")
 
-	def GetDate(self):
-		time.strftime("%d/%m/%Y")
+	@staticmethod
+	def GetDate():
+		return time.strftime("%d/%m/%Y")
