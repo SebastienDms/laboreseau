@@ -7,6 +7,9 @@ class Login:
 		b'seb': b'star'
 	}
 
+	NAME = 0
+	PWD = 1
+
 	def Log(self, log: bytes, motDePasse: bytes) -> bool:
 		if log in self.__listeLogin:
 			if self.__listeLogin[log] == motDePasse:
