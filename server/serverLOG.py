@@ -1,5 +1,5 @@
 from socket import *
-import time
+from .GestionTemps import Temps
 
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)

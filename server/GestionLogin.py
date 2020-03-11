@@ -1,4 +1,4 @@
-class Login():
+class Login:
 	__listeLogin = {
 		"root": "root",
 		"seb": "star"
