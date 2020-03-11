@@ -4,7 +4,7 @@ class Login:
 		"seb": "star"
 	}
 
-	def Log(self, motDePasse) -> bool:
+	def Log(self, motDePasse: str) -> bool:
 		for login in self.__listeLogin:
 			if self.__listeLogin[login] == motDePasse:
 				return True
