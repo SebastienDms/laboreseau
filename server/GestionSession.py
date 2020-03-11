@@ -20,5 +20,5 @@ class Session:
 
 		return False
 
-	def CreerSession(self, adresseIp, login: str):
+	def CreerSession(self, adresseIp, login: bytes):
 		self.__listeSession[adresseIp] = login
