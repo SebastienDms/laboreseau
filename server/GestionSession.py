@@ -14,9 +14,8 @@ class Session:
 			Session.__instance = self
 
 	def SessionExiste(self, adresseIp) -> bool:
-		for ip in self.__listeSession:
-			if self.__listeSession[ip] == adresseIp:
-				return True
+		if adresseIp in self.__listeSession:
+			return True
 
 		return False
 

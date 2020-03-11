@@ -1,15 +1,19 @@
+from socket import socket
 from .Command import *
-from .serverLOG import connectionSocket
 
 
 class Handshake:
+    __connectionSocket: socket
+
+    def __init__(self, socketInit: socket):
+        __connectionSocket = socketInit
 
     def conack(self, rep: bytes):
         if rep == Command.SYN:
-            connectionSocket.send(Command.SYNOK)
+            self.__connectionSocket.send(Command.SYNOK.value)
             return False
         elif rep == Command.OK:
             return True
         else:
-            connectionSocket.send(Command.UNK)
+            self.__connectionSocket.send(Command.UNK.value)
             return False

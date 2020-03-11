@@ -4,9 +4,9 @@ class Login:
 		b'seb': b'star'
 	}
 
-	def Log(self, motDePasse: bytes) -> bool:
-		for login in self.__listeLogin:
-			if self.__listeLogin[login] == motDePasse:
+	def Log(self, log: bytes, motDePasse: bytes) -> bool:
+		if log in self.__listeLogin:
+			if self.__listeLogin[log] == motDePasse:
 				return True
 
 		return False

@@ -3,9 +3,9 @@ import time
 
 class Temps:
 	@staticmethod
-	def GetHeure() -> str:
+	def GetHeure() -> bytes:
 		return time.strftime("H:%M:%S").encode()
 
 	@staticmethod
-	def GetDate() -> str:
+	def GetDate() -> bytes:
 		return time.strftime("%d/%m/%Y").encode()
