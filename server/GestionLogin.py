@@ -4,11 +4,9 @@ class Login:
 		"seb": "star"
 	}
 
-	def GetLogin(self, motDePasse):
-		loginRetour = "NULL"
-
+	def Log(self, motDePasse) -> bool:
 		for login in self.__listeLogin:
 			if self.__listeLogin[login] == motDePasse:
-				loginRetour = login
+				return True
 
-		return loginRetour
+		return False
