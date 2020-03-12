@@ -9,7 +9,7 @@ from server.GestionConnexion import Connexion
 connexion: Connexion = Connexion()
 log: Login = Login.Instance()
 session: Session = Session.Instance()
-handshake: Handshake = Handshake(connexion.GetConnection())
+handshake: Handshake = Handshake(connexion)
 
 while handshake.conack(connexion.Recoit()):
 	connexion.SetNombreListeners(1)
