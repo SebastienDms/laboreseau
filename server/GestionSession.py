@@ -4,7 +4,7 @@ class Session:
 	__listeSession = {}
 
 	@staticmethod
-	def GetInstance():
+	def Instance():
 		if Session.__instance is None:
 			Session()
 		return Session.__instance

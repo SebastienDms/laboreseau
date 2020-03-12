@@ -7,8 +7,8 @@ from server.Command import Command
 from server.GestionConnexion import Connexion
 
 connexion: Connexion = Connexion()
-log: Login = Login()
-session: Session = Session.GetInstance()
+log: Login = Login.Instance()
+session: Session = Session.Instance()
 handshake: Handshake = Handshake(connexion.GetConnection())
 
 while handshake.conack(connexion.Recoit()):
