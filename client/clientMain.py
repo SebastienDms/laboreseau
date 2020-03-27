@@ -44,7 +44,7 @@ while connexion.Recoit() != Command.FAIL.value:
 # Menu utilisateur
 while commandeEnvoyee != Command.CLOSE.value:
     print(">> Tapez")
-    print(">> 1 pour connaitre l\'heure")
+    print(">> 1 pour connaitre l'heure")
     print(">> 2 pour fermer la session")
     print(">> 3 pour fermer la connexion")
     choix = input(">> Votre choix : ")
