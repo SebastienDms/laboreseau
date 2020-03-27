@@ -42,10 +42,10 @@ def TraitementCommandeRecue():
 		connexion.Envoie(Command.UNK.value)
 
 
-while handshake.conack(connexion.Recoit()):  # tant qu'aucun client ne demande de connexion on attend
+commandeRecue = connexion.Recoit()
+while handshake.conack(commandeRecue):  # tant qu'aucun client ne demande de connexion on attend
 	connexion.SetNombreListeners(1)
 	connexion.SetConnection()  # initialise la connexion
 
 	commandeRecue = connexion.Recoit()  # attend la prochaine commande
-
 	TraitementCommandeRecue()
