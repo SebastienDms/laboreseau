@@ -21,3 +21,6 @@ class Session:
 
 	def CreerSession(self, adresseIp, login: bytes):
 		self.__listeSession[adresseIp] = login
+
+	def Deconnexion(self, adresseIp):
+		del self.__listeSession[adresseIp]

@@ -15,7 +15,7 @@ handshake: Handshake = Handshake(connexion)
 commandeRecue: bytes
 
 
-def TraitementLogin():
+def Login():
 	if session.SessionExiste(connexion.GetIp()):  # si la session est déjà connue
 		connexion.Envoie(Command.AUTHOK.value)  # on informe le client qu'il est déjà authentifié
 	else:  # sinon c'est une nouvelle session
@@ -30,10 +30,14 @@ def TraitementLogin():
 
 
 def TraitementCommandeRecue():
-	if commandeRecue == Command.AUTH:  # si le client demande de s'authentifier
-		TraitementLogin()
-	elif commandeRecue == Command.TIME:  # si le client demander l'heure du serveur
+	if commandeRecue == Command.AUTH.value:  # si le client demande de s'authentifier
+		Login()
+	elif commandeRecue == Command.TIME.value:  # si le client demander l'heure du serveur
 		connexion.Envoie(Temps.GetHeure())
+	elif commandeRecue == Command.DISCONNECT.value:  # si le client demande de se déconnecter
+		session.Deconnexion(connexion.GetIp())
+	elif commandeRecue == Command.CLOSE.value:  # si le client demande à fermer la connexion
+		connexion.Close()
 	else:  # la commande reçue n'est pas connue
 		connexion.Envoie(Command.UNK.value)
 
