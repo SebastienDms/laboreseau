@@ -27,7 +27,6 @@ def TraitementCommandeRecue():
     else:
         print(">> Votre choix n'est pas reconnu")
 
-
 # Etablissement de la connexion
 connexion.Envoie(Command.SYN.value)
 while handshake.ack(connexion.Recoit()):
@@ -51,6 +50,5 @@ while commandeEnvoyee != Command.CLOSE.value:
     choix = input(">> Votre choix : ")
 
     TraitementCommandeRecue()
-
 
 clientSocket.close()
