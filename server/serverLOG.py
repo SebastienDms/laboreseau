@@ -5,24 +5,43 @@ from server.GestionSession import Session
 from server.GestionLogin import Login
 from server.Command import Command
 from server.GestionConnexion import Connexion
+from server.GestionTemps import Temps
 
 connexion: Connexion = Connexion()
 log: Login = Login.Instance()
 session: Session = Session.Instance()
 handshake: Handshake = Handshake(connexion)
 
-while handshake.conack(connexion.Recoit()):
+commandeRecue: bytes
+
+
+def TraitementLogin():
+	if session.SessionExiste(connexion.GetIp()):  # si la session est déjà connue
+		connexion.Envoie(Command.AUTHOK.value)  # on informe le client qu'il est déjà authentifié
+	else:  # sinon c'est une nouvelle session
+		connexion.Envoie(Command.ASKAUTH.value)  # on demande une authentification
+
+		logs: List[bytes] = log.ExtraitLogin(connexion.Recoit())  # récupère les logs utilisateur/mdp
+		if log.Log(logs[Login.NAME], logs[Login.PWD]):  # si les logs existent
+			connexion.Envoie(Command.AUTHOK.value)  # informe le client qu'il est connecté
+			session.CreerSession(connexion.GetIp(), logs[Login.NAME])  # réalise la connexion
+		else:
+			connexion.Envoie(Command.FAIL.value)  # si les logs n'existent pas on informe le client
+
+
+def TraitementCommandeRecue():
+	if commandeRecue == Command.AUTH:  # si le client demande de s'authentifier
+		TraitementLogin()
+	elif commandeRecue == Command.TIME:  # si le client demander l'heure du serveur
+		connexion.Envoie(Temps.GetHeure())
+	else:  # la commande reçue n'est pas connue
+		connexion.Envoie(Command.UNK.value)
+
+
+while handshake.conack(connexion.Recoit()):  # tant qu'aucun client ne demande de connexion on attend
 	connexion.SetNombreListeners(1)
-	connexion.SetConnection()
+	connexion.SetConnection()  # initialise la connexion
 
-if session.SessionExiste(connexion.GetIp()):
-	print('coucou')
-else:
-	connexion.Envoie(Command.ASKAUTH.value)
+	commandeRecue = connexion.Recoit()  # attend la prochaine commande
 
-	logs: List[bytes] = log.ExtraitLogin(connexion.Recoit())
-	if log.Log(logs[Login.NAME], logs[Login.PWD]):
-		connexion.Envoie(Command.AUTHOK.value)
-		session.CreerSession(connexion.GetIp(), logs[Login.NAME])
-	else:
-		connexion.Envoie(Command.FAIL.value)
+	TraitementCommandeRecue()
