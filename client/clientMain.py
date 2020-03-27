@@ -3,15 +3,13 @@ from client.Commands import Command
 from client.Handshake import Handshake
 
 connexion: Connexion = Connexion()
-handshake: Handshake = Handshake()
+handshake: Handshake = Handshake(connexion)
 
 connexion.Envoie(Command.SYN.value)
-while not Handshake.ack(connexion.Recoit()):
-    input("Connexion au serveur en cours...")
+while handshake.ack(connexion.Recoit()):
+	input("Connexion au serveur en cours...")
 
 input("Connexion avec le serveur établie")
 connexion.Envoie(Command.AUTH.value)
 
-
-
-clientSocket.close()
+connexion.Close()
