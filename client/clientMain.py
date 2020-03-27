@@ -3,7 +3,7 @@ from client.Commands import Command
 from client.Handshake import Handshake
 
 connexion: Connexion = Connexion()
-handshake: Handshake = Handshake()
+handshake: Handshake = Handshake(connexion)
 
 commandeRecue: bytes
 commandeEnvoyee: bytes
@@ -30,7 +30,7 @@ def TraitementCommandeRecue():
 
 # Etablissement de la connexion
 connexion.Envoie(Command.SYN.value)
-while Handshake.ack(connexion.Recoit()):
+while handshake.ack(connexion.Recoit()):
     print("Connexion au serveur en cours...")
 
 print("Connexion avec le serveur établie")
