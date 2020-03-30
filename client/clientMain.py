@@ -9,24 +9,26 @@ commandeRecue: bytes
 commandeEnvoyee: bytes = b''
 
 
-def TraitementCommandeRecue():
+def TraitementCommandeRecue(choix: str):
 	global commandeEnvoyee
 
-	login: bytes
-	mdp: bytes
+	login: str
+	mdp: str
 
-	if commandeRecue == Command.ASKAUTH.value:
-		login = input(">> Votre login : ").encode()
-		mdp = input(">> Votre mot de passe : ").encode()
+	print(commandeRecue)
+
+	if commandeRecue == Command.ASKAUTH.value or choix == "0":
+		login = input(">> Votre login : ")
+		mdp = input(">> Votre mot de passe : ")
 		commandeEnvoyee = Command.AUTH.value
-		connexion.Envoie(commandeEnvoyee + " " + login + " " + mdp)
-	elif choix == 1:
+		connexion.Envoie(commandeEnvoyee + (" " + login + " " + mdp).encode())
+	elif choix == "1":
 		commandeEnvoyee = Command.TIME.value
 		connexion.Envoie(commandeEnvoyee)
-	elif choix == 2:
+	elif choix == "2":
 		commandeEnvoyee = Command.DISCONNECT.value
 		connexion.Envoie(commandeEnvoyee)
-	elif choix == 3:
+	elif choix == "3":
 		commandeEnvoyee = Command.CLOSE.value
 		connexion.Envoie(commandeEnvoyee)
 	else:
@@ -43,10 +45,11 @@ print("Connexion avec le serveur établie")
 
 # Authentification du client
 connexion.Envoie(Command.AUTH.value)
-while connexion.Recoit() != Command.FAIL.value:
-	commandeRecue = connexion.Recoit()
+commandeRecue = connexion.Recoit()
+while commandeRecue != Command.FAIL.value:
+	TraitementCommandeRecue("0")
 
-	TraitementCommandeRecue()
+	commandeRecue = connexion.Recoit()
 
 # Menu utilisateur
 while commandeEnvoyee != Command.CLOSE.value:
@@ -56,6 +59,6 @@ while commandeEnvoyee != Command.CLOSE.value:
 	print(">> 3 pour fermer la connexion")
 	choix = input(">> Votre choix : ")
 
-	TraitementCommandeRecue()
+	TraitementCommandeRecue(choix)
 
 connexion.Close()
