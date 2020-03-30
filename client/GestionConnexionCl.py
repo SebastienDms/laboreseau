@@ -6,14 +6,19 @@ class Connexion:
 	__serverPort: int
 	__clientSocket: socket
 
+	__state: bool = False
+
 	def __init__(self):
 		self.__serveurName = "127.0.0.1"
 		self.__serverPort = 12000
 		self.__clientSocket = socket(AF_INET, SOCK_STREAM)
 		self.__clientSocket.connect((self.__serveurName, self.__serverPort))
+		self.__state = True
 
 	def Close(self):
-		self.__clientSocket.close()
+		if self.__state:
+			self.__clientSocket.close()
+			self.__state = False
 
 	def GetConnection(self) -> socket:
 		return self.__clientSocket

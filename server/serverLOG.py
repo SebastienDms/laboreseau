@@ -38,7 +38,9 @@ def TraitementCommandeRecue():
 		connexion.Envoie(Temps.GetHeure())
 	elif commandeRecue == Command.DISCONNECT.value:  # si le client demande de se déconnecter
 		session.Deconnexion(connexion.GetIp())
+		connexion.Envoie(Command.DISOK.value)
 	elif commandeRecue == Command.CLOSE.value:  # si le client demande à fermer la connexion
+		connexion.Envoie(Command.CLOSEOK.value)
 		connexion.Close()
 	else:  # la commande reçue n'est pas connue
 		connexion.Envoie(Command.UNK.value)
@@ -47,10 +49,6 @@ def TraitementCommandeRecue():
 # Etablissement de la connexion
 while handshake.conack(connexion.Recoit()):
 	pass
-
-#commandeRecue = connexion.Recoit()
-#while handshake.conack(commandeRecue):  # tant qu'aucun client ne demande de connexion on attend
-	#connexion.SetConnection()  # initialise la connexion
 
 while connexion.State():
 	print(1)

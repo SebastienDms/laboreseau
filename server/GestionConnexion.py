@@ -21,8 +21,9 @@ class Connexion:
 		return self.__clientAddress[0]
 
 	def Close(self):
-		self.__connectionSocket.close()
-		self.__state = False
+		if self.__state:
+			self.__connectionSocket.close()
+			self.__state = False
 
 	def GetConnection(self) -> socket:
 		return self.__connectionSocket

@@ -18,5 +18,7 @@ class Command(AutoName):
 	SYNOK = auto()  # confirmation du serveur pour la dmd de synchro
 	OK = auto()  # indique que le client en envie (ACK)
 	UNK = auto()  # indique que la commande n'est pas reconnue
+	DISOK = auto()  # indique que la déconnexion de la session est un succès
+	CLOSEOK = auto()  # indique que la fermeture de connexion est un succès
 
 
