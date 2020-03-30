@@ -11,10 +11,10 @@ class Handshake:
 	def conack(self, rep: bytes):
 		if rep == Command.SYN.value:
 			self.__connectionSocket.Envoie(Command.SYNOK.value)
-			return False
+			return True
 		elif rep == Command.OK.value:
 			self.__connectionSocket.Envoie(Command.OK.value)
-			return True
+			return False
 		else:
 			self.__connectionSocket.Envoie(Command.UNK.value)
 			return False

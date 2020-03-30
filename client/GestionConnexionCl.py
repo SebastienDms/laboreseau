@@ -19,7 +19,10 @@ class Connexion:
 		return self.__clientSocket
 
 	def Envoie(self, message: bytes):
+		print("Envoie " + message.decode())
 		self.__clientSocket.send(message)
 
 	def Recoit(self, tailleBuffer: int = 1024) -> bytes:
-		return self.__clientSocket.recv(tailleBuffer)
+		recoit: bytes = self.__clientSocket.recv(tailleBuffer)
+		print("Recoit " + recoit.decode())
+		return recoit

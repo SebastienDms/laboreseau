@@ -7,14 +7,14 @@ class Handshake:
 
 	def __init__(self, socketInit: Connexion):
 		self.__clientSocket = socketInit
-		self.__clientSocket.Envoie(Command.SYN.value)
 
 	def ack(self, rep: bytes):
-		if rep == Command.SYNOK:
+		# print("ACK " + rep.decode())
+		if rep == Command.SYNOK.value:
 			self.__clientSocket.Envoie(Command.OK.value)
-			return False
-		elif rep == Command.OK:
 			return True
+		elif rep == Command.OK.value:
+			return False
 		else:
 			self.__clientSocket.Envoie(Command.UNK.value)
-			return False
+			return True
