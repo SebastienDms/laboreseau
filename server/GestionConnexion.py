@@ -11,14 +11,18 @@ class Connexion:
 	__connectionSocket = None
 	__clientAddress = None
 
+	__state: bool = False
+
 	def __init__(self):
 		self.__connectionSocket, self.__clientAddress = self.__serverSocket.accept()
+		self.__state = True
 
 	def GetIp(self):
 		return self.__clientAddress[0]
 
 	def Close(self):
 		self.__connectionSocket.close()
+		self.__state = False
 
 	def GetConnection(self) -> socket:
 		return self.__connectionSocket
@@ -38,3 +42,6 @@ class Connexion:
 		recoit: bytes = self.__connectionSocket.recv(tailleBuffer)
 		print("Recoit " + recoit.decode())
 		return recoit
+
+	def State(self) -> bool:
+		return self.__state
