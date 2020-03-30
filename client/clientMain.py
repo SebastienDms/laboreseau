@@ -16,10 +16,14 @@ def Authentification():
 	connexion.Envoie(Command.AUTH.value)
 	commandeRecue = connexion.Recoit()
 	while commandeRecue != Command.AUTHOK.value:
+		if commandeRecue == Command.FAIL.value:
+			print("\033[31mErreur de connexion... Le login et/ou le mot de passe sont incorrects.\033[0m")
+			connexion.Envoie(Command.AUTH.value)
+			commandeRecue = connexion.Recoit()
 		TraitementCommandeRecue("0")
 
 		commandeRecue = connexion.Recoit()
-
+	print("\033[32mAuthentification réussie !\033[0m")
 
 def TraitementCommandeRecue(choix: str):
 	global commandeEnvoyee
@@ -74,7 +78,7 @@ Authentification()
 
 # Menu utilisateur
 while commandeEnvoyee != Command.CLOSE.value:
-	print(">> Tapez")
+	print(">>\033[52m Menu (saisir) \033[0m")
 	print(">> 1 pour connaitre l'heure")
 	print(">> 2 pour fermer la session")
 	print(">> 3 pour fermer la connexion")
